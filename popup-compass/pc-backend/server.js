@@ -1,8 +1,21 @@
 const express = require('express')
 const app = express()
+const Shop = require('./models/Shop')
 const port = process.argv[2] || 8080
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser')
+const apiKey = require('./apiKey')
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017');
+
+mongoose.Promise = global.Promise;
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log("Connected to db at /data/db/")
+});
 
 app.use(bodyParser.json())
 
@@ -13,8 +26,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const apiKey = '6TlzC-_L3I4fA1f4Obda_Yff1xhuGPBRG1xt_wYfrM7LO_-Sl9TqiJV9C2nfx8oQyjCJh_1-jXV-zOUhP-FVmDWqB11rCQU7OHxUZlHymBhzHAWKQ25_zWcCc_umWnYx';
-
 const searchRequest = {
   categories: 'popupshops',
   location: 'vancouver, bc'
@@ -22,21 +33,83 @@ const searchRequest = {
 
 const client = yelp.client(apiKey);
 
-app.get('/shops', (req, res) => {
-  client.search(searchRequest).then(response => {
-    const firstResult = response.jsonBody.businesses;
-    const prettyJson = JSON.stringify(firstResult, null, 4);
-    res.send(prettyJson);
-    // console.log(firstResult)
-  }).catch(e => {
-    console.log(e);
-  });
+// (database / API)
+app.get('/shops', async (req, res, next) => {
+  let shops
+  try {
+    // MONGO
+    const mongoData = await Shop.find({})
+      .then(Shops => {
+        shops = Shops
+      })
+
+    // YELP API
+    const yelpData = await client.search(searchRequest).then(response => {
+      console.log(JSON.parse(response.body))
+      debugger
+      const firstResult = response.jsonBody.businesses;
+      const prettyJson = firstResult
+      let newShops = shops.concat(prettyJson)
+      res.send(newShops);
+    }).catch(e => {
+      console.log(e);
+    })
+  } catch (e) {
+    next(e)
+  }
 
 })
 
-app.get('/', (req, res) => {
-  res.send('Root page');
-});
+// ***MONGO***
+
+// MOCKUP DATA
+let newShop = Shop(
+  {
+    name: "The East Exchange",
+    image_url: "https://images.unsplash.com/photo-1490289290721-2fe480322f21?ixlib=rb-0.3.5&s=8698fa7d18ebdd0f0f9af914243fc222&auto=format&fit=crop&w=1350&q=80",
+    dates: "December 10 at the Russian Hall.",
+    description: "As its name suggests, the East Exchange spotlights maker from the city’s East Side, including Oona Clothing Company, the Rad Scientist, and more.Expect seasonal décor, giftable oddities, cannabis-infused topicals, and more.",
+    // category: String,
+    // rating: Number,
+    coordinates: {
+      latitude: 000,
+      longitude: 001,
+    },
+    location: {
+      address1: "600 Campbell Street",
+      city: "Vancouver",
+      // zip_code: String,
+      country: 'CA',
+      state: "BC",
+    }
+  }
+);
+
+// *CREATE
+// newShop.save()
+//   .then(shop => {
+//     console.log('Shop created.')
+//   })
+//   .catch(err => {
+//     console.log(err);
+//   })
+
+// *UPDATE
+// let shop = req.body.shop
+// let update = {
+//   name: shop.name,
+//   address: shop.address
+// }
+// let query = { "_id": shop._id }
+
+// Task.findOneAndUpdate(query, update, { new: true, runValidators: true })
+//   .then(updatedObject => {
+//     res.json(updatedObject);
+//   })
+//   .catch(err => {
+//     console.log(err)
+//     res.status(400).json({ err });
+//   })
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`)
