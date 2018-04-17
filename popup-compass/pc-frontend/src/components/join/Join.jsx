@@ -20,7 +20,7 @@ class Join extends Component {
               </div>
             </div>
 
-            <div className="col-md-12">
+            <div className="col-md-12 mb-5">
               <h2 className="mb-3 mt-3">Join our community of local retailers like you!</h2>
               <p className="text-justify">
                 Pop-up Compass creates a community for consumers and retailers of pop-up shops. As a consumer, you
@@ -28,7 +28,6 @@ class Join extends Component {
                 events. As a retailer, you can create your own profile, post details on your pop-up shop locations and
                 events, as well as advertise your products.
               </p>
-              <br />
               <button className="btn btn-primary waves-light">Join</button>
             </div>
 

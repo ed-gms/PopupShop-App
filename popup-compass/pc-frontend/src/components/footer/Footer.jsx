@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class Footer extends Component {
   render() {
     return (
-      <footer class="page-footer elegant-color center-on-small-only">
-        <div class="container">
-          <div class="row">
+      <footer className="page-footer elegant-color center-on-small-only fixed-bottom">
+        <div className="container">
+          <div className="row">
 
-            <div class="col-md-12">
+            <div className="col-md-12">
               <br/>
               <br/>
             </div>
@@ -15,8 +15,8 @@ class Footer extends Component {
           </div>
         </div>
 
-        <div class="footer-copyright">
-          <div class="container-fluid text-center">
+        <div className="footer-copyright">
+          <div className="container-fluid text-center">
             © 2017 Copyright
           </div>
         </div>

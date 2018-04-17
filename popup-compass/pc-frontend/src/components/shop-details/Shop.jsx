@@ -60,7 +60,7 @@ class Shop extends Component {
     })
     return (
       <div style={shopPgStyle}>
-        <div className="container-fluid bg-#eeeeee grey lighten-3 z-depth-1-half">
+        <div className="container bg-#eeeeee grey lighten-3 z-depth-1-half">
           {shopJSX}
         </div>
       </div>

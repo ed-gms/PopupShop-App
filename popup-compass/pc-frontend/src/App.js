@@ -52,7 +52,7 @@ class App extends Component {
           <Route path='/createprofile' component={CreateProfile} />
         </Switch>
 
-        <div>
+        <div className="mt-5">
           <Footer/>
         </div>
       </div>

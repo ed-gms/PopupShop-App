@@ -18,7 +18,7 @@ class About extends Component {
               </p>
             </div>
 
-            <div className="col-md-10">
+            <div className="col-md-10 mb-5">
               <div className="view overlay z-depth-1-half">
                 <img className="d-block w-100 img-fluid" src="https://images.unsplash.com/photo-1457221675774-24790d99071a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dc04bd0d24d9a0afca293efa3a42d2b6&auto=format&fit=crop&w=2809&q=80" alt="shopping" />
                 <div className="mask rgba-white-slight"></div>
