@@ -1,5 +1,5 @@
 import React from "react";
-import { compose, withProps, withState, withHandlers,  } from "recompose";
+import { compose, withProps, withState, withHandlers } from "recompose";
 
 import {
   withScriptjs,
