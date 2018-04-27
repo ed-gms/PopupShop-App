@@ -1,49 +1,48 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink } from 'mdbreact';
 
 class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapse: false,
+      isWideEnough: false,
+    };
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    this.setState({
+      collapse: !this.state.collapse
+    });
+  }
+
   render() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark elegant-color fixed-top scrolling-navbar">
-        <div className="container">
-          <Link to="/" className="nav-link">
-            <i className="navbar-brand fa fa-compass fa-5x" aria-hidden="false"> <span className="font-weight-bold">Pop-up Compass</span> </i>
-          </Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto smooth-scroll">
-              <li className="nav-item">
-                <Link to="/" className="nav-link"> Home
-                <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/about" className="nav-link">About Us</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/popupshops" className="nav-link">Pop-up Shops</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/join" className="nav-link">Join</Link>
-              </li>
-            </ul>
+      <Navbar color="elegant-color" dark expand="md" scrolling>
+        <NavbarBrand href="/">
+          <i className="navbar-brand fa fa-compass fa-5x" aria-hidden="false"> <strong className="font-weight-bold">Pop-up Compass</strong> </i>
+        </NavbarBrand>
+        {!this.state.isWideEnough && <NavbarToggler onClick={this.onClick} />}
+        <Collapse isOpen={this.state.collapse} navbar>
+          <NavbarNav left>
+            <NavItem active>
+              <NavLink to="/" onClick={this.onClick}>Home</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/about" onClick={this.onClick}>About Us</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/popupshops" onClick={this.onClick}>Pop-up Shops</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/join" onClick={this.onClick}>Join</NavLink>
+            </NavItem>
 
-            <ul className="navbar-nav nav-flex-icons">
-              <li className="nav-item">
-                <a className="nav-link"><i className="fa fa-facebook"></i></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link"><i className="fa fa-twitter"></i></a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link"><i className="fa fa-instagram"></i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+          </NavbarNav>
+        </Collapse>
+      </Navbar>
+
     );
   }
 }

@@ -7,7 +7,6 @@ import About from './components/about/About.jsx'
 import ShopList from './components/shop-list/ShopList.jsx'
 import Shop from './components/shop-details/Shop.jsx'
 import Join from './components/join/Join.jsx'
-// import CreateProfile from './components/profile/CreateProfile.jsx'
 import axios from 'axios'
 import {
   Switch,
@@ -34,7 +33,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <Nav />
+          <Nav/>
         </header>
 
         <Switch>
