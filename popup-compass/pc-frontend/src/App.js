@@ -21,7 +21,7 @@ class App extends Component {
     }
   }
   componentWillMount() {
-    axios.get(`http://localhost:8080/shops`)
+    axios.get(`http://localhost:8081/shops`)
       .then((response) => {
         this.setState({
           shops: response.data,

@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const Shop = require('./models/Shop')
-const port = process.argv[2] || 8080
+const port = process.argv[2] || 8081
 const yelp = require('yelp-fusion');
 const bodyParser = require('body-parser')
 const apiKey = require('./apiKey')
