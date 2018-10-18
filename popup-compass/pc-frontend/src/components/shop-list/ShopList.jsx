@@ -29,10 +29,10 @@ class ShopList extends Component {
   };
 
   render() {
-    let filteredShops = this.props.shops.filter(shop => {
-      return (
-        shop.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
-      );
+    let { search } = this.state;
+    let { shops } = this.props;
+    let filteredShops = shops.filter(shop => {
+      return shop.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     });
     let newShops = filteredShops.map(shop => {
       return shop;
@@ -69,8 +69,8 @@ class ShopList extends Component {
       <div style={pageStyle}>
         <div className="container">
           <SearchBar
-            shops={this.props.shops}
-            search={this.state.search}
+            shops={shops}
+            search={search}
             updateSearch={this.updateSearch}
           />
           <div className="row">{filteredJSX}</div>
